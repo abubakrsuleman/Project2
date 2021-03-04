@@ -17,7 +17,6 @@ public StartUp() { //setting up StartUp Frame and Panel using Constructor Method
 	}
 	
 	public static void main(String[] args) {
-		System.out.println("Commit #1");
 		StartUp startUpGui = new StartUp();
 	}
 
