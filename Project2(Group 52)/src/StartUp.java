@@ -30,7 +30,7 @@ public class StartUp implements ActionListener{
 		topBar.setForeground(topFontColor); //White Text
 		
 		exitBtn.setBounds(700,1,35,30);
-				//exitBtn.addActionListener(this);  
+		exitBtn.addActionListener(this);
 		startUpPanel.add(exitBtn);
 		
 		startUpFrame.add(startUpPanel);
@@ -44,7 +44,7 @@ public class StartUp implements ActionListener{
 	@Override //add functions for clickable buttons
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource()== exitBtn) {
+		if(e.getSource()== exitBtn) { //Exit Button Exits Program
 			System.exit(0);
 		}
 	}
