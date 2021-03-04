@@ -1,7 +1,9 @@
 import java.awt.*;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
-public class StartUp {
+
+public class StartUp implements ActionListener{
 	static JFrame startUpFrame = new JFrame();
 	static JPanel startUpPanel = new JPanel(null);
 	static JLabel topBar = new JLabel("Inventory Management System");
@@ -37,6 +39,12 @@ public class StartUp {
 	
 	public static void main(String[] args) {
 		StartUp startUpGui = new StartUp();
+	}
+
+	@Override //add functions for clickable buttons
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
