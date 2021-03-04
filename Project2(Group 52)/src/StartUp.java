@@ -1,7 +1,12 @@
+import java.awt.*;
+
 import javax.swing.*;
 public class StartUp {
 	static JFrame startUpFrame = new JFrame();
 	static JPanel startUpPanel = new JPanel(null);
+	static JLabel topBar = new JLabel("Inventory Management System");
+	Color topFontColor = new Color(255,255,255);
+	Font topBarFont = new Font("Serif",Font.PLAIN,36);
 	
 public StartUp() { //setting up StartUp Frame and Panel using Constructor Method
 		
@@ -12,6 +17,12 @@ public StartUp() { //setting up StartUp Frame and Panel using Constructor Method
 	    //getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 	    
 		startUpFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		
+		topBar.setBounds(1,1,750,20);
+		startUpPanel.add(topBar);
+		topBar.setOpaque(true);
+		topBar.setBackground(Color.BLACK); //Black Background
+		topBar.setForeground(topFontColor); //White Text
 		startUpFrame.add(startUpPanel);
 		startUpFrame.setVisible(true);
 	}
