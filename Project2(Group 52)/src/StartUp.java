@@ -44,7 +44,9 @@ public class StartUp implements ActionListener{
 	@Override //add functions for clickable buttons
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		if(e.getSource()== exitBtn) {
+			System.exit(0);
+		}
 	}
 
 }
