@@ -7,7 +7,11 @@ public class StartUp {
 	static JLabel topBar = new JLabel("Inventory Management System");
 	Color topFontColor = new Color(255,255,255);
 	Font topBarFont = new Font("Serif",Font.PLAIN,36);
-public StartUp() { //setting up StartUp Frame and Panel using Constructor Method
+	static ImageIcon exitIcon = new ImageIcon("./Images/Exit_Button.png");
+	
+	static JButton exitBtn = new JButton(exitIcon);
+	
+	public StartUp() { //setting up StartUp Frame and Panel using Constructor Method
 		
 		startUpFrame.setTitle("Start Menu");
 		startUpFrame.setSize(750,250);
@@ -23,6 +27,9 @@ public StartUp() { //setting up StartUp Frame and Panel using Constructor Method
 		topBar.setBackground(Color.BLACK); //Black Background
 		topBar.setForeground(topFontColor); //White Text
 		
+		exitBtn.setBounds(700,1,35,30);
+				//exitBtn.addActionListener(this);  
+		startUpPanel.add(exitBtn);
 		
 		startUpFrame.add(startUpPanel);
 		startUpFrame.setVisible(true);
