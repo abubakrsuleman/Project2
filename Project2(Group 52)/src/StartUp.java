@@ -7,16 +7,18 @@ public class StartUp implements ActionListener{
 	static JFrame startUpFrame = new JFrame();
 	static JPanel startUpPanel = new JPanel(null);
 	static JLabel topBar = new JLabel("Inventory Management System");
+	static JLabel welcomeLabel = new JLabel("Welcome");
 	Color topFontColor = new Color(255,255,255);
-	Font topBarFont = new Font("Serif",Font.PLAIN,36);
+	Color WelcomeTextColor = new Color(0,0,0);
+	Font WelcomeFont = new Font("",Font.BOLD,20);
 	static ImageIcon exitIcon = new ImageIcon("./Images/Exit_Button.png");
-	
+	static JLabel backgroundUI = new JLabel();
 	static JButton exitBtn = new JButton(exitIcon);
 	
 	public StartUp() { //setting up StartUp Frame and Panel using Constructor Method
 		
 		startUpFrame.setTitle("Start Menu");
-		startUpFrame.setSize(750,250);
+		startUpFrame.setSize(750,500);
 		startUpFrame.setResizable(false);
 		//setUndecorated(true);
 	    //getRootPane().setWindowDecorationStyle(JRootPane.NONE);
@@ -28,6 +30,18 @@ public class StartUp implements ActionListener{
 		topBar.setOpaque(true);
 		topBar.setBackground(Color.BLACK); //Black Background
 		topBar.setForeground(topFontColor); //White Text
+		
+		welcomeLabel.setBounds(310,1,90,30);
+		welcomeLabel.setForeground(WelcomeTextColor);
+		welcomeLabel.setBackground(Color.WHITE); 
+		welcomeLabel.setOpaque(true);
+		welcomeLabel.setFont(WelcomeFont);
+		backgroundUI.add(welcomeLabel);
+		
+		backgroundUI.setBounds(1,30,750,750);
+		backgroundUI.setOpaque(true);
+		backgroundUI.setBackground(Color.WHITE); //White Background
+		startUpPanel.add(backgroundUI);
 		
 		exitBtn.setBounds(700,1,35,30);
 		exitBtn.addActionListener(this);
