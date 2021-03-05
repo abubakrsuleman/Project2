@@ -24,7 +24,7 @@ public class StartUp implements ActionListener{
 	
 	public StartUp() { //setting up StartUp Frame and Panel using Constructor Method
 		
-		startUpFrame.setTitle("Start Menu");
+		startUpFrame.setTitle("Inventory Management System");
 		startUpFrame.setSize(750,350);
 		startUpFrame.setResizable(false);
 		//setUndecorated(true);
@@ -73,6 +73,8 @@ public class StartUp implements ActionListener{
 		
 		exitBtn.setBounds(700,1,35,40);
 		exitBtn.addActionListener(this);
+		exitBtn.setBorderPainted(false);
+		exitBtn.setFocusPainted(false);
 		startUpPanel.add(exitBtn);
 		
 		startUpFrame.add(startUpPanel);
