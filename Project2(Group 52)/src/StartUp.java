@@ -6,7 +6,7 @@ import javax.swing.*;
 public class StartUp implements ActionListener{
 	static JFrame startUpFrame = new JFrame();
 	static JPanel startUpPanel = new JPanel(null);
-	static JLabel topBar = new JLabel("Inventory Management System");
+	static JLabel topBar = new JLabel("Inventory Management System",SwingConstants.CENTER);
 	static JLabel welcomeLabel = new JLabel("Welcome");
 	Color topFontColor = new Color(255,255,255);
 	Color WelcomeTextColor = new Color(0,0,0);
@@ -15,11 +15,17 @@ public class StartUp implements ActionListener{
 	static ImageIcon exitIcon = new ImageIcon("./Images/Exit_Button.png");
 	static JLabel backgroundUI = new JLabel();
 	static JButton exitBtn = new JButton(exitIcon);
+	static ImageIcon userIcon = new ImageIcon("./Images/user_Icon.png");
+	static JLabel userIconLabel = new JLabel(userIcon);
+	static ImageIcon adminIcon = new ImageIcon("./Images/admin_Icon.png");
+	static JLabel adminIconLabel = new JLabel(adminIcon);
+	static JButton userLoginBtn = new JButton("User Login");
+	static JButton adminLoginBtn = new JButton("Admin Login");
 	
 	public StartUp() { //setting up StartUp Frame and Panel using Constructor Method
 		
 		startUpFrame.setTitle("Start Menu");
-		startUpFrame.setSize(750,500);
+		startUpFrame.setSize(750,350);
 		startUpFrame.setResizable(false);
 		//setUndecorated(true);
 	    //getRootPane().setWindowDecorationStyle(JRootPane.NONE);
@@ -33,12 +39,32 @@ public class StartUp implements ActionListener{
 		topBar.setForeground(topFontColor); //White Text
 		topBar.setFont(topBarFont);
 		
-		welcomeLabel.setBounds(310,1,90,50);
+		welcomeLabel.setBounds(320,5,90,50);
 		welcomeLabel.setForeground(WelcomeTextColor);
 		welcomeLabel.setBackground(Color.WHITE); 
 		welcomeLabel.setOpaque(true);
 		welcomeLabel.setFont(WelcomeFont);
 		backgroundUI.add(welcomeLabel);
+		
+		userIconLabel.setBounds(20,50,150,150);
+		backgroundUI.add(userIconLabel);
+		
+		userLoginBtn.setBounds(30,230,130,30);
+		userLoginBtn.addActionListener(this);
+		userLoginBtn.setBackground(Color.BLACK);
+		userLoginBtn.setForeground(Color.WHITE);
+		userLoginBtn.setOpaque(true);
+		backgroundUI.add(userLoginBtn);
+		
+		adminIconLabel.setBounds(20,50,1150,165);
+		backgroundUI.add(adminIconLabel);
+		
+		adminLoginBtn.setBounds(525,230,130,30);
+		adminLoginBtn.addActionListener(this);
+		adminLoginBtn.setBackground(Color.BLACK);
+		adminLoginBtn.setForeground(Color.WHITE);
+		adminLoginBtn.setOpaque(true);
+		backgroundUI.add(adminLoginBtn);
 		
 		backgroundUI.setBounds(1,30,750,750);
 		backgroundUI.setOpaque(true);
