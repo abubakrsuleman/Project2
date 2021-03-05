@@ -89,6 +89,15 @@ public class StartUp implements ActionListener{
 		if(e.getSource()== exitBtn) { //Exit Button Exits Program
 			System.exit(0);
 		}
+		if(e.getSource() == userLoginBtn) {
+			userLogin.main(null);
+			startUpFrame.dispose();
+		}
+		
+		if(e.getSource() == adminLoginBtn) {
+			adminLogin.main(null);
+			startUpFrame.dispose();
+		}
 	}
 
 }
