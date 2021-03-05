@@ -11,6 +11,7 @@ public class StartUp implements ActionListener{
 	Color topFontColor = new Color(255,255,255);
 	Color WelcomeTextColor = new Color(0,0,0);
 	Font WelcomeFont = new Font("",Font.BOLD,20);
+	Font topBarFont = new Font("",Font.BOLD,30);
 	static ImageIcon exitIcon = new ImageIcon("./Images/Exit_Button.png");
 	static JLabel backgroundUI = new JLabel();
 	static JButton exitBtn = new JButton(exitIcon);
@@ -25,13 +26,14 @@ public class StartUp implements ActionListener{
 	    
 		startUpFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
-		topBar.setBounds(1,1,750,30);
+		topBar.setBounds(1,1,750,40);
 		startUpPanel.add(topBar);
 		topBar.setOpaque(true);
 		topBar.setBackground(Color.BLACK); //Black Background
 		topBar.setForeground(topFontColor); //White Text
+		topBar.setFont(topBarFont);
 		
-		welcomeLabel.setBounds(310,1,90,30);
+		welcomeLabel.setBounds(310,1,90,50);
 		welcomeLabel.setForeground(WelcomeTextColor);
 		welcomeLabel.setBackground(Color.WHITE); 
 		welcomeLabel.setOpaque(true);
@@ -43,7 +45,7 @@ public class StartUp implements ActionListener{
 		backgroundUI.setBackground(Color.WHITE); //White Background
 		startUpPanel.add(backgroundUI);
 		
-		exitBtn.setBounds(700,1,35,30);
+		exitBtn.setBounds(700,1,35,40);
 		exitBtn.addActionListener(this);
 		startUpPanel.add(exitBtn);
 		
