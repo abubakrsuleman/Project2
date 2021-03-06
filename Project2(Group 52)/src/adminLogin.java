@@ -1,7 +1,11 @@
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import javax.swing.*;
+import java.sql.*;
 public class adminLogin {
 	static JFrame adminLoginFrame = new JFrame();
 	static JPanel adminLoginPanel = new JPanel(null);
@@ -82,6 +86,54 @@ public class adminLogin {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		adminLogin adminLoginGui = new adminLogin();
+		Connection conn = connect();
+		
+		/*
+		 try {         
+			//write code here!
+			int ID = 1;
+			String username = "Robert01";
+			String password = "admin";
+			String firstname = "Robert";
+			String surname = "Smith";
+			//String pCat = "Drink";
+			
+			String sql = "INSERT INTO AdminLogin(ID,Username,Password,Firstname,Surname) VALUES(?,?,?,?,?)";
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,ID); // we dont need this as we have defined this field as auto-increment and not null
+			pstmt.setString(2, username);
+			pstmt.setString(3, password);
+			pstmt.setString(4, firstname);
+			pstmt.setString(5, surname);
+				           
+			pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }	*/
 	}
+	
+	private static Connection connect ()
+	{
+		String fileName =  "C:/Users/Abubakr/git/Project2/Project2(Group 52)/Database/adminLogin.db";
+		String url = "jdbc:sqlite:" + fileName;
+		// SQLite connection string
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(url);
+            System.out.println("Db connection successful!");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return conn;
+	} 
 
 }
