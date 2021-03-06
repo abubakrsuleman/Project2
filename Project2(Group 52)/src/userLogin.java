@@ -1,7 +1,7 @@
 import java.awt.Color;
 import java.awt.Font;
-
 import javax.swing.*;
+import java.sql.*;
 public class userLogin {
 	static JFrame userLoginFrame = new JFrame();
 	static JPanel userLoginPanel = new JPanel(null);
@@ -22,8 +22,9 @@ public class userLogin {
 	
 	static JButton userLoginBtn = new JButton("Login");
 	public userLogin() {
+		userLoginFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		userLoginFrame.setTitle("Inventory Management System");
-		userLoginFrame.setSize(300,300);
+		userLoginFrame.setSize(300,260);
 		userLoginFrame.setResizable(false);
 		//setUndecorated(true);
 	    //getRootPane().setWindowDecorationStyle(JRootPane.NONE);
@@ -81,6 +82,56 @@ public class userLogin {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		userLogin userLoginGui = new userLogin();
+		Connection conn = connect();
+		/*
+		try {         
+			//write code here!
+			int ID = 1;
+			String username = "Jacob01";
+			String password = "pass";
+			String firstname = "Jacob";
+			String surname = "James";
+			//String pCat = "Drink";
+			
+			String sql = "INSERT INTO UserLogin(ID,Username,Password,Firstname,Surname) VALUES(?,?,?,?,?)";
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,ID); // we dont need this as we have defined this field as auto-increment and not null
+			pstmt.setString(2, username);
+			pstmt.setString(3, password);
+			pstmt.setString(4, firstname);
+			pstmt.setString(5, surname);
+				           
+			pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        */
 	}
+	
+	private static Connection connect ()
+	{
+		String fileName =  "C:/Users/Abubakr/git/Project2/Project2(Group 52)/Database/userLogin.db";
+		String url = "jdbc:sqlite:" + fileName;
+		// SQLite connection string
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(url);
+            System.out.println("Db connection successful!");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return conn;
+	} 
+	
+	
 
 }

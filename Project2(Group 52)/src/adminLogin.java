@@ -22,6 +22,7 @@ public class adminLogin {
 	
 	static JButton userLoginBtn = new JButton("Login");
 	public adminLogin() {
+		adminLoginFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		adminLoginFrame.setTitle("Inventory Management System");
 		adminLoginFrame.setSize(300,300);
 		adminLoginFrame.setResizable(false);
