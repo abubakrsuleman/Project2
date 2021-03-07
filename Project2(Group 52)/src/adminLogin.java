@@ -1,88 +1,99 @@
 import java.awt.Color;
 import java.awt.Font;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
-public class adminLogin {
-	static JFrame adminLoginFrame = new JFrame();
-	static JPanel adminLoginPanel = new JPanel(null);
-	
-	static JLabel topBar = new JLabel("Admin Login",SwingConstants.CENTER);
-	Font topBarFont = new Font("",Font.BOLD,30);
-	Color topFontColor = new Color(255,255,255);
-	static JLabel backgroundUI = new JLabel();
-	static JLabel usernameLabel = new JLabel("Username");
-	static JLabel passwordLabel = new JLabel("Password");
-	
-	static ImageIcon backBtnIcon = new ImageIcon("./Images/backBtn_icon.png");
-	static JButton backToStartUpBtn = new JButton(backBtnIcon);
-	
-	static JTextField usernameField = new JTextField();
-	static JPasswordField passwordField = new JPasswordField();
-	Font LabelFont = new Font("",Font.BOLD,20);
-	
-	static JButton userLoginBtn = new JButton("Login");
-	public adminLogin() {
-		adminLoginFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		adminLoginFrame.setTitle("Inventory Management System");
-		adminLoginFrame.setSize(300,300);
-		adminLoginFrame.setResizable(false);
-		//setUndecorated(true);
-	    //getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+import javax.swing.*;
+public class adminLogin implements ActionListener {
+		PreparedStatement pst = null;
+		static JFrame adminLoginFrame = new JFrame();
+		static JPanel adminLoginPanel = new JPanel(null);
 		
-		backgroundUI.setBackground(Color.WHITE);
-		backgroundUI.setOpaque(true);
+		static JLabel topBar = new JLabel("Admin Login",SwingConstants.CENTER);
+		Font topBarFont = new Font("",Font.BOLD,30);
+		Color topFontColor = new Color(255,255,255);
+		static JLabel backgroundUI = new JLabel();
+		static JLabel usernameLabel = new JLabel("Username");
+		static JLabel passwordLabel = new JLabel("Password");
 		
-		topBar.setBounds(1,1,300,40);
-		adminLoginPanel.add(topBar);
-		topBar.setOpaque(true);
-		topBar.setBackground(Color.BLACK); //Black Background
-		topBar.setForeground(topFontColor); //White Text
-		topBar.setFont(topBarFont);
+		static ImageIcon backBtnIcon = new ImageIcon("./Images/backBtn_icon.png");
+		static JButton backToStartUpBtn = new JButton(backBtnIcon);
 		
-		usernameLabel.setFont(LabelFont);
-		usernameLabel.setBounds(10,30,150,50);
+		static JTextField usernameField = new JTextField();
+		static JPasswordField passwordField = new JPasswordField();
 		
-		passwordLabel.setFont(LabelFont);
-		passwordLabel.setBounds(10,90,150,50);
+		static JLabel loginBoxRounded = new JLabel();
+		static ImageIcon adminIcon = new ImageIcon("./Images/admin_Icon.png");
+		static JLabel adminIconBigLabel = new JLabel(adminIcon);
+		Font LabelFont = new Font("",Font.BOLD,20);
 		
-		usernameField.setBounds(120,45,150,20);
+		static JButton adminLoginBtn = new JButton("Login");
 		
-		passwordField.setBounds(120,110,150,20);
-		
-		
-		userLoginBtn.setBounds(75,150,130,30);
-		//userLoginBtn.addActionListener(this);
-		userLoginBtn.setBackground(Color.BLACK);
-		userLoginBtn.setForeground(Color.WHITE);
-		userLoginBtn.setOpaque(true);
-		backgroundUI.add(userLoginBtn);
-		
-		backToStartUpBtn.setBounds(1,1,35,40);
-		backToStartUpBtn.setBackground(Color.BLACK);
-	    //backToStartUpBtn.setOpaque(true);
-		backToStartUpBtn.setBorderPainted(false);
-		backToStartUpBtn.setFocusPainted(false);
-		//exitBtn.addActionListener(this);
-		adminLoginPanel.add(backToStartUpBtn);
-		
-		backgroundUI.add(usernameLabel);
-		backgroundUI.add(passwordLabel);
-		backgroundUI.add(usernameField);
-		backgroundUI.add(passwordField);
-		backgroundUI.add(userLoginBtn);
-		
-		
-		
-		backgroundUI.setBounds(1,30,750,750);
-		
-		adminLoginPanel.add(backgroundUI);
-		adminLoginFrame.add(adminLoginPanel);
-		adminLoginFrame.setVisible(true);
-	}
+		public adminLogin() {
+			adminLoginFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+			adminLoginFrame.setTitle("Inventory Management System");
+			adminLoginFrame.setSize(700,300);
+			adminLoginFrame.setResizable(false);
+			//setUndecorated(true);
+		    //getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+			
+			backgroundUI.setBackground(Color.WHITE);
+			backgroundUI.setOpaque(true);
+			
+			topBar.setBounds(1,1,700,40);
+			adminLoginPanel.add(topBar);
+			topBar.setOpaque(true);
+			topBar.setBackground(Color.BLACK); //Black Background
+			topBar.setForeground(topFontColor); //White Text
+			topBar.setFont(topBarFont);
+			
+			usernameLabel.setFont(LabelFont);
+			usernameLabel.setBounds(200,30,150,50);
+			
+			passwordLabel.setFont(LabelFont);
+			passwordLabel.setBounds(200,90,150,50);
+			
+			usernameField.setBounds(300,45,150,20);
+			
+			passwordField.setBounds(300,110,150,20);
+			
+			
+			adminLoginBtn.setBounds(300,150,130,30);
+			adminLoginBtn.addActionListener(this);
+			adminLoginBtn.setBackground(Color.BLACK);
+			adminLoginBtn.setForeground(Color.WHITE);
+			adminLoginBtn.setOpaque(true);
+			backgroundUI.add(adminLoginBtn);
+			
+			backToStartUpBtn.setBounds(1,1,35,40);
+			backToStartUpBtn.setBackground(Color.BLACK);
+		    //backToStartUpBtn.setOpaque(true);
+			backToStartUpBtn.setBorderPainted(false);
+			backToStartUpBtn.setFocusPainted(false);
+			//exitBtn.addActionListener(this);
+			adminLoginPanel.add(backToStartUpBtn);
+			
+		//	loginBoxRounded.setBounds(200,20,300,200);
+			loginBoxRounded.setBounds(90,20,500,200);
+			loginBoxRounded.setBackground(Color.GRAY);
+			loginBoxRounded.setOpaque(true);
+			
+			adminIconBigLabel.setBounds(25,20,150,150);
+			
+			loginBoxRounded.add(usernameLabel);
+			loginBoxRounded.add(passwordLabel);
+			loginBoxRounded.add(usernameField);
+			loginBoxRounded.add(passwordField);
+			loginBoxRounded.add(adminLoginBtn);
+			loginBoxRounded.add(adminIconBigLabel);
+			
+			backgroundUI.add(loginBoxRounded);
+			backgroundUI.setBounds(1,30,700,700);
+			
+			adminLoginPanel.add(backgroundUI);
+			adminLoginFrame.add(adminLoginPanel);
+			adminLoginFrame.setVisible(true);
+		}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		adminLogin adminLoginGui = new adminLogin();
@@ -134,6 +145,11 @@ public class adminLogin {
             System.out.println(e.getMessage());
         }
         return conn;
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	} 
 
 }
