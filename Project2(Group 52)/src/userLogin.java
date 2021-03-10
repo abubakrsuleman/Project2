@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.sql.*;
 public class userLogin implements ActionListener {
-	Connection conn = connect();
+	static Connection conn = DatabaseConnection.connect();
 	PreparedStatement pst = null;
 	static JFrame userLoginFrame = new JFrame();
 	static JPanel userLoginPanel = new JPanel(null);
@@ -99,60 +99,57 @@ public class userLogin implements ActionListener {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		userLogin userLoginGui = new userLogin();
+		/*
 		try {         
 			//write code here!
-		//	int ID = 1;
-		//	String username = "Jacob01";
-		//	String password = "pass";
-		//	String firstname = "Jacob";
-		//	String surname = "James";
-			//String pCat = "Drink";
+			int ID = 1;
+			String username = "Jacob01";
+			String password = "pass";
+			String firstname = "Jacob";
+			String surname = "James";
+			boolean isBasicUser = false;
 			
-	//		String sql = "INSERT INTO UserLogin(ID,Username,Password,Firstname,Surname) VALUES(?,?,?,?,?)";
-			
-		//	PreparedStatement pstmt = conn.prepareStatement(sql);
-		//	pstmt.setInt(1,ID); // we dont need this as we have defined this field as auto-increment and not null
-		//	pstmt.setString(2, username);
-		//	pstmt.setString(3, password);
-		//	pstmt.setString(4, firstname);
-		//	pstmt.setString(5, surname);
-				           
-		//	pstmt.executeUpdate();
+	        String sql = "INSERT INTO UserLogin(ID,Username,Password,Firstname,Surname,isBasicUser) VALUES(?,?,?,?,?,?)";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,ID); // we dont need this as we have defined this field as auto-increment and not null
+			pstmt.setString(2, username);
+			pstmt.setString(3, password);
+			pstmt.setString(4, firstname);
+			pstmt.setString(5, surname);
+			pstmt.setBoolean(6,isBasicUser);           
+			pstmt.executeUpdate();
         }catch(Exception e) {
         	
-        }
+        } 
+		*/
 		}
-	
-	private static Connection connect ()
-	{
-		String fileName =  "C:/Users/Abubakr/git/Project2/Project2(Group 52)/Database/userLogin.db";
-		String url = "jdbc:sqlite:" + fileName;
-		// SQLite connection string
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(url);
-            System.out.println("Db connection successful!");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return conn;
-	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == userLoginBtn) {
-			String sql = "select * from UserLogin where Username = ? & Password = ?";
+			
 			try {
-				pst=conn.prepareStatement(sql);
+				String sql = "select * from UserLogin where Username = ? & Password = ?";
+				PreparedStatement pst = conn.prepareStatement(sql);
 				pst.setString(1, usernameField.getText());
 				pst.setString(2, passwordField.getText());
 				System.out.println(pst.toString());
-				//rs = pst.executeQuery();
-			//	if(rs.next()) {
-					
-				//}
+				ResultSet rs = pst.executeQuery();
+				int tries = 0;
+			while(rs.next()) {
+				tries = tries + 1;	
+			}
+			if(tries == 1) {
+				JOptionPane.showMessageDialog(null, "Correct Username & Password");
+			}else if(tries > 1) {
+				JOptionPane.showMessageDialog(null, "Duplicate Login Details");
+			}else {
+				JOptionPane.showMessageDialog(null, "Invalid Login Details. Try Again...");
+			}
+			rs.close();
+			pst.close();
 			}catch(Exception ex) {
-				System.out.println("Error is: "+ex);
+				JOptionPane.showMessageDialog(null,"Error is: "+ ex);
 			}
 		}
 	} 

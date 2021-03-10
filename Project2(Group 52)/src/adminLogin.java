@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 import javax.swing.*;
 public class adminLogin implements ActionListener {
+	    static Connection conn = DatabaseConnection.connect();
 		PreparedStatement pst = null;
 		static JFrame adminLoginFrame = new JFrame();
 		static JPanel adminLoginPanel = new JPanel(null);
@@ -97,8 +98,6 @@ public class adminLogin implements ActionListener {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		adminLogin adminLoginGui = new adminLogin();
-		Connection conn = connect();
-		
 		/*
 		 try {         
 			//write code here!
@@ -130,21 +129,6 @@ public class adminLogin implements ActionListener {
                 System.out.println(ex.getMessage());
             }
         }	*/
-	}
-	
-	private static Connection connect ()
-	{
-		String fileName =  "C:/Users/Abubakr/git/Project2/Project2(Group 52)/Database/adminLogin.db";
-		String url = "jdbc:sqlite:" + fileName;
-		// SQLite connection string
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(url);
-            System.out.println("Db connection successful!");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return conn;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
