@@ -147,38 +147,47 @@ public class userLogin implements ActionListener {
         String passwordInput = new String(passwordField.getPassword());
 
         ResultSet res = stmt.executeQuery(sql);
-        String correctUsername = res.getString("Username");
-      	String correctPassword = res.getString("Password");
+        
+ 	    ArrayList<Object> rec = new ArrayList<Object>();
+ 	    ArrayList<Object> usernameDetails = new ArrayList<Object>();
+ 	    ArrayList<Object> passwordDetails = new ArrayList<Object>();
+ 	   
             // loop through the result set
-      	    do {
-      	     ArrayList<Object> rec = new ArrayList<Object>();
-      	     int datacheckCount = 0;
-      	     if(datacheckCount == 0) {
-      	    	 datacheckCount = datacheckCount + 1;
+        while (res.next()){
+      	   
+             String correctUsername = res.getString("Username"); //needs to be arraylist
+      	     String correctPassword = res.getString("Password"); //needs to be arraylist
                	 rec.add(correctUsername);
              	 rec.add(correctPassword);
-             	 data.add(rec); 
-      	     }
-         	 
-      	     if(datacheckCount > 0) {
-      	    	 
-      	     }
+             	 data.add(rec); 	 
            	 if(usernameInput.equals(correctUsername) && passwordInput.equals(correctPassword)) {
            		 JOptionPane.showMessageDialog(null, "Correct Login Details");
-           		 break;
+           		 usernameField.setText(null);
+           		 passwordField.setText(null);
+           		 break; 
            	 }
-           	 else if(usernameInput != correctUsername && passwordInput != correctPassword) {
+           	 else if(!usernameInput.equals(correctUsername) && !passwordInput.equals(correctPassword)) {
           		 JOptionPane.showMessageDialog(null, "Wrong Login Details");
           	 System.out.println("Records Exist: "+ res.next());
           	 
           	 System.out.println("Username Inputted: "+usernameInput);
           	 System.out.println("Password Inputted: "+passwordInput);
-             System.out.println("Correct Username: "+ correctUsername+" Correct Password: "+correctPassword);
              break;
            	 }
       	    }
-            while (res.next());
-           	
+            printData(data);
+	}
+	public static void printData (ArrayList<ArrayList<Object>> data)
+	{
+		for (int i=0; i<data.size(); i++)
+		{
+			for (int j=0; j<data.get(i).size(); j++)
+			{
+				System.out.print(data.get(i).get(j));
+				System.out.print(" ");
+			}
+			System.out.println();
+		}
 	}
 	
 }
