@@ -1,14 +1,13 @@
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.util.*;
 import javax.swing.*;
 import java.sql.*;
 public class userLogin implements ActionListener {
+	ArrayList<ArrayList<Object>> data;
 	static Connection conn = DatabaseConnection.connect();
-	PreparedStatement pst = null;
 	static JFrame userLoginFrame = new JFrame();
 	static JPanel userLoginPanel = new JPanel(null);
 	
@@ -99,15 +98,16 @@ public class userLogin implements ActionListener {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		userLogin userLoginGui = new userLogin();
+		
 		/*
 		try {         
 			//write code here!
-			int ID = 1;
-			String username = "Jacob01";
+			int ID = 2;
+			String username = "placeholder";
 			String password = "pass";
-			String firstname = "Jacob";
-			String surname = "James";
-			boolean isBasicUser = false;
+			String firstname = "placeholder";
+			String surname = "placeholder";
+			boolean isBasicUser = true;
 			
 	        String sql = "INSERT INTO UserLogin(ID,Username,Password,Firstname,Surname,isBasicUser) VALUES(?,?,?,?,?,?)";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -122,38 +122,63 @@ public class userLogin implements ActionListener {
         	
         } 
 		*/
+        
+		
 		}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == userLoginBtn) {
-			
 			try {
-				String sql = "select * from UserLogin where Username = ? & Password = ?";
-				PreparedStatement pst = conn.prepareStatement(sql);
-				pst.setString(1, usernameField.getText());
-				pst.setString(2, passwordField.getText());
-				System.out.println(pst.toString());
-				ResultSet rs = pst.executeQuery();
-				int tries = 0;
-			while(rs.next()) {
-				tries = tries + 1;	
-			}
-			if(tries == 1) {
-				JOptionPane.showMessageDialog(null, "Correct Username & Password");
-			}else if(tries > 1) {
-				JOptionPane.showMessageDialog(null, "Duplicate Login Details");
-			}else {
-				JOptionPane.showMessageDialog(null, "Invalid Login Details. Try Again...");
-			}
-			rs.close();
-			pst.close();
-			}catch(Exception ex) {
-				JOptionPane.showMessageDialog(null,"Error is: "+ ex);
+				userLoginMethod();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		}
 	} 
 	
-	
+	private void userLoginMethod() throws SQLException{
+		String sql = "SELECT Username,Password FROM UserLogin";
+        Statement stmt  = conn.createStatement();
+        data = new ArrayList<ArrayList<Object>>();
+        
+        String usernameInput = usernameField.getText();
+        String passwordInput = new String(passwordField.getPassword());
 
+        ResultSet res = stmt.executeQuery(sql);
+        String correctUsername = res.getString("Username");
+      	String correctPassword = res.getString("Password");
+            // loop through the result set
+      	    do {
+      	     ArrayList<Object> rec = new ArrayList<Object>();
+      	     int datacheckCount = 0;
+      	     if(datacheckCount == 0) {
+      	    	 datacheckCount = datacheckCount + 1;
+               	 rec.add(correctUsername);
+             	 rec.add(correctPassword);
+             	 data.add(rec); 
+      	     }
+         	 
+      	     if(datacheckCount > 0) {
+      	    	 
+      	     }
+           	 if(usernameInput.equals(correctUsername) && passwordInput.equals(correctPassword)) {
+           		 JOptionPane.showMessageDialog(null, "Correct Login Details");
+           		 break;
+           	 }
+           	 else if(usernameInput != correctUsername && passwordInput != correctPassword) {
+          		 JOptionPane.showMessageDialog(null, "Wrong Login Details");
+          	 System.out.println("Records Exist: "+ res.next());
+          	 
+          	 System.out.println("Username Inputted: "+usernameInput);
+          	 System.out.println("Password Inputted: "+passwordInput);
+             System.out.println("Correct Username: "+ correctUsername+" Correct Password: "+correctPassword);
+             break;
+           	 }
+      	    }
+            while (res.next());
+           	
+	}
+	
 }

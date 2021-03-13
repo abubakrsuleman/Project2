@@ -11,7 +11,7 @@ public class DatabaseConnection {
 	
 	public static Connection connect()
 	{
-		String fileName =  "C:/Users/Abubakr/git/Project2/Project2(Group 52)/Database/LoginDetails.db";
+		String fileName = "C:/Users/Abubakr/git/Project2/Project2(Group 52)/Database/LoginDetails.db";
 		String url = "jdbc:sqlite:" + fileName;
 		// SQLite connection string
         Connection conn = null;
