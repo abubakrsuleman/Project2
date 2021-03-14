@@ -1,16 +1,17 @@
 import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.*;
 import java.sql.*;
 public class userLogin implements ActionListener {
+	boolean isBasicUserBool = false;
 	ArrayList<ArrayList<Object>> data;
 	static Connection conn = DatabaseConnection.connect();
 	static JFrame userLoginFrame = new JFrame();
 	static JPanel userLoginPanel = new JPanel(null);
-	
+	JPanel timerPanel = new JPanel(null);
 	static JLabel topBar = new JLabel("User Login",SwingConstants.CENTER);
 	Font topBarFont = new Font("",Font.BOLD,30);
 	Color topFontColor = new Color(255,255,255);
@@ -90,11 +91,12 @@ public class userLogin implements ActionListener {
 		
 		backgroundUI.add(loginBoxRounded);
 		backgroundUI.setBounds(1,30,700,700);
-		
+		backgroundUI.add(timerPanel);
 		userLoginPanel.add(backgroundUI);
 		userLoginFrame.add(userLoginPanel);
 		userLoginFrame.setVisible(true);
 	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		userLogin userLoginGui = new userLogin();
@@ -139,7 +141,7 @@ public class userLogin implements ActionListener {
 	} 
 	
 	private void userLoginMethod() throws SQLException{
-		String sql = "SELECT Username,Password FROM UserLogin";
+		String sql = "SELECT Username,Password,IsBasicUser FROM UserLogin";
         Statement stmt  = conn.createStatement();
         data = new ArrayList<ArrayList<Object>>();
         
@@ -149,21 +151,30 @@ public class userLogin implements ActionListener {
         ResultSet res = stmt.executeQuery(sql);
         
  	    ArrayList<Object> rec = new ArrayList<Object>();
- 	    ArrayList<Object> usernameDetails = new ArrayList<Object>();
- 	    ArrayList<Object> passwordDetails = new ArrayList<Object>();
  	   
             // loop through the result set
         while (res.next()){
       	   
              String correctUsername = res.getString("Username"); //needs to be arraylist
       	     String correctPassword = res.getString("Password"); //needs to be arraylist
+      	     int correctIsBasicUser = res.getInt("IsBasicUser");
                	 rec.add(correctUsername);
              	 rec.add(correctPassword);
+             	 rec.add(correctIsBasicUser);
              	 data.add(rec); 	 
            	 if(usernameInput.equals(correctUsername) && passwordInput.equals(correctPassword)) {
            		 JOptionPane.showMessageDialog(null, "Correct Login Details");
-           		 usernameField.setText(null);
-           		 passwordField.setText(null);
+           		 usernameField.setText(null); //clears username text box
+           		 passwordField.setText(null); //clears password text box
+           		 if(correctIsBasicUser == 0) { // 0 represents advanced user
+           			 isBasicUserBool = false; // user is not advanced user
+           		 }
+           		 if(correctIsBasicUser == 1) { //1 represents basic user
+           			isBasicUserBool = true;
+           		 }
+           		 if(isBasicUserBool = true) {
+           			 
+           		 }
            		 break; 
            	 }
            	 else if(!usernameInput.equals(correctUsername) && !passwordInput.equals(correctPassword)) {

@@ -3,8 +3,11 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 public class adminLogin implements ActionListener {
+	    ArrayList<ArrayList<Object>> adminData;
 	    static Connection conn = DatabaseConnection.connect();
 		PreparedStatement pst = null;
 		static JFrame adminLoginFrame = new JFrame();
@@ -133,7 +136,62 @@ public class adminLogin implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		try {
+			adminLoginMethod();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 	} 
+	
+	private void adminLoginMethod() throws SQLException{
+		String sql = "SELECT Username,Password FROM AdminLogin";
+        Statement stmtADMIN  = conn.createStatement();
+        adminData = new ArrayList<ArrayList<Object>>();
+        
+        String usernameInput = usernameField.getText();
+        String passwordInput = new String(passwordField.getPassword());
 
+        ResultSet res = stmtADMIN.executeQuery(sql);
+        
+ 	    ArrayList<Object> rec = new ArrayList<Object>();
+ 	   
+            // loop through the result set
+        while (res.next()){
+      	   
+             String correctUsername = res.getString("Username"); //needs to be arraylist
+      	     String correctPassword = res.getString("Password"); //needs to be arraylist
+               	 rec.add(correctUsername);
+             	 rec.add(correctPassword);
+             	adminData.add(rec); 	 
+           	 if(usernameInput.equals(correctUsername) && passwordInput.equals(correctPassword)) {
+           		 JOptionPane.showMessageDialog(null, "Correct Login Details");
+           		 usernameField.setText(null);
+           		 passwordField.setText(null);
+           		 break; 
+           	 }
+           	 else if(!usernameInput.equals(correctUsername) && !passwordInput.equals(correctPassword) || !usernameInput.equals(correctUsername) || !passwordInput.equals(correctPassword)) {
+          		 JOptionPane.showMessageDialog(null, "Wrong Login Details");
+          	 System.out.println("Records Exist: "+ res.next());
+          	 
+          	 System.out.println("Username Inputted: "+usernameInput);
+          	 System.out.println("Password Inputted: "+passwordInput);
+             break;
+           	 }
+      	    }
+            printData(adminData);
+	}
+	public static void printData (ArrayList<ArrayList<Object>> data)
+	{
+		for (int i=0; i<data.size(); i++)
+		{
+			for (int j=0; j<data.get(i).size(); j++)
+			{
+				System.out.print(data.get(i).get(j));
+				System.out.print(" ");
+			}
+			System.out.println();
+		}
+	}
 }
